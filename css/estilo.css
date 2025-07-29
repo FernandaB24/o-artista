@@ -1,45 +1,433 @@
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Poppins&display=swap');
+/* Estilos globais */
+:root {
+    --header-footer-bg: #1a1a1a; /* Mais escuro */
+    --text-color: #f0f0f0; /* Texto claro para fundos escuros */
+    --light-bg: #e0e0e0; /* Fundo geral mais claro */
+    --link-hover-bg: rgba(255, 255, 255, 0.2); /* Hover mais sutil */
+    --active-link-text: #fff;
 
-body {
-  font-family: 'Poppins';
+    /* Cores do Tema */
+    --theme-home: #2c2c2c; /* Cinza escuro para a página inicial */
+    --theme-filme: #5a148c; /* Roxo mais profundo */
+    --theme-livro: #e07b00; /* Laranja mais vibrante */
+    --theme-musica: #c42e2a; /* Vermelho mais intenso */
+
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+    --shadow-dark: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra para elementos em destaque */
 }
 
-header, #principal, #second, #contato, #stream {
-	
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    background-color: var(--light-bg);
+    color: var(--text-color); /* Cor do texto padrão para o corpo */
+    transition: background-color 0.3s ease;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px; /* Cantos mais arredondados */
+    box-shadow: var(--shadow-light); /* Sombra padrão para imagens */
+}
+
+/* Estilos do cabeçalho */
+header {
+    background-color: var(--header-footer-bg);
+    color: #fff;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--shadow-dark);
+    border-radius: 0; /* Removido o border-radius inferior para combinar com as imagens */
+    position: sticky; /* Sticky header */
+    top: 0;
+    z-index: 1000;
+}
+
+#logo img {
+    height: 50px; /* Mantido o tamanho da logo */
+    width: auto;
+    margin-bottom: 0.8rem;
+    border-radius: 0;
+    box-shadow: none; /* Sem sombra para a logo */
+}
+
+nav {
+    width: 100%;
+}
+
+#menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.item-menu {
+    margin: 0 12px; /* Espaçamento ajustado */
 }
 
 .link-menu {
-  color: #fff;
-  background-color: #555;
+    color: #fff;
+    padding: 0.6rem 1.2rem; /* Padding ajustado */
+    display: block;
+    transition: background-color 0.3s ease, transform 0.2s ease, border-radius 0.3s ease;
+    border-radius: 8px; /* Cantos mais arredondados */
 }
 
-.f {
-  background-color: #5b305a;
+.link-menu:hover {
+    background-color: var(--link-hover-bg);
+    transform: translateY(-2px); /* Efeito de levantar */
+    border-radius: 10px;
 }
 
-.l {
-  background-color: #e49756;
+/* Estilos para os links ativos - dinâmicos com base na página */
+.link-menu.active-home { background-color: var(--theme-home); font-weight: bold; border-radius: 10px; }
+.link-menu.f { background-color: var(--theme-filme); font-weight: bold; border-radius: 10px; }
+.link-menu.l { background-color: var(--theme-livro); font-weight: bold; border-radius: 10px; }
+.link-menu.m { background-color: var(--theme-musica); font-weight: bold; border-radius: 10px; }
+
+
+/* Estilos da seção principal e secundária (comuns) */
+main, #second {
+    padding: 2.5rem 1.5rem; /* Padding aumentado */
+    max-width: 1100px; /* Largura ligeiramente menor */
+    margin: 30px auto; /* Margem ajustada */
+    border-radius: 15px; /* Cantos mais arredondados */
+    box-shadow: var(--shadow-dark); /* Sombra mais forte */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem; /* Espaçamento maior entre elementos */
+    color: #fff;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.m {
-  background-color: #e04b5a;
+/* Fundos específicos por página para as seções principal e secundária */
+main:not(.f):not(.l):not(.m), #second:not(.f):not(.l):not(.m) {
+    background-color: var(--theme-home);
+}
+main.f, #second.f {
+    background-color: var(--theme-filme);
+}
+main.l, #second.l {
+    background-color: var(--theme-livro);
+}
+main.m, #second.m {
+    background-color: var(--theme-musica);
 }
 
-main {
-  background-color: #333;
-  color: #ddd;
+#principal {
+    margin-bottom: 2.5rem;
 }
 
-h1, h2 {
-  font-family: 'Amatic SC';
+#principal figure {
+    margin: 0;
+    flex-shrink: 0;
 }
 
-#second a{
-  color: #fff;
+/* Tamanhos específicos para a imagem #capa dependendo da página */
+main #capa {
+    width: 220px; /* Default para filme e livro */
+    height: 300px; /* Default para filme e livro */
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow-dark);
+    transition: transform 0.3s ease;
 }
 
+main:not(.f):not(.l):not(.m) #capa { /* Para a página inicial (index.html) */
+    width: 250px;
+    height: 250px;
+}
+
+main.m #capa { /* Para a página de música (musica.html) */
+    width: 250px;
+    height: 250px;
+}
+
+#capa:hover, .capa:hover {
+    transform: scale(1.02); /* Efeito de zoom sutil */
+}
+
+#sec_ctd {
+    flex-grow: 1;
+    text-align: center;
+    padding: 0 1rem; /* Padding interno */
+}
+
+#sec_ctd h1 {
+    color: #fff;
+    margin-top: 0;
+    font-size: 2.2rem; /* Tamanho ajustado */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Sombra no texto */
+}
+
+#sec_ctd p {
+    font-size: 1rem; /* Tamanho ajustado */
+    line-height: 1.7;
+    text-align: justify;
+    color: #f0f0f0; /* Texto mais claro */
+}
+
+#descricao {
+    flex: 1;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.1); /* Fundo sutil para a descrição */
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2); /* Sombra interna */
+}
+
+#descricao iframe {
+    width: 100%;
+    max-width: 500px; /* Diminuído de 550px */
+    height: 280px; /* Diminuído de 300px */
+    border-radius: 12px;
+    box-shadow: var(--shadow-dark);
+}
+
+#descricao h3 {
+    color: #fff;
+    font-size: 1.6rem; /* Tamanho ajustado */
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#descricao ol, #descricao ul {
+    list-style-position: inside;
+    padding-left: 0;
+    text-align: left;
+    max-width: 350px; /* Largura ajustada */
+    margin: 0 auto;
+    color: #f0f0f0;
+}
+
+#descricao li {
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+#acesso {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem; /* Espaçamento ajustado */
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.15); /* Mais opaco */
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borda sutil */
+}
+
+#acesso a {
+    background-color: rgba(255, 255, 255, 0.25); /* Mais opaco para botões */
+    color: #fff;
+    padding: 10px 22px; /* Padding ajustado */
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    font-size: 1rem; /* Tamanho ajustado */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border: none; /* Remove a borda padrão */
+}
+
+#acesso a:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos específicos para a página inicial (index.html) */
+.cartaz {
+    display: block;
+    margin: 1.2rem; /* Margem ajustada */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cartaz:hover {
+    transform: scale(1.06);
+    box-shadow: var(--shadow-dark);
+}
+
+.capa {
+    width: 180px; /* Diminuído de 220px para a página inicial */
+    height: 250px; /* Diminuído de 300px para a página inicial */
+}
+
+/* Estilos específicos para a página de Livro */
+#acesso.l {
+    font-size: 1.3rem; /* Tamanho ajustado */
+    font-weight: bold;
+    color: #fff;
+}
+
+#acesso.l a {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+#acesso.l a:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Estilos específicos para a página de Música */
+#acesso.m {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px; /* Espaçamento entre ícones */
+}
+
+#acesso.m img {
+    width: 45px; /* Diminuído de 50px */
+    height: 45px; /* Diminuído de 50px */
+    margin: 0; /* Remove margem extra */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#acesso.m img:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos do rodapé */
 footer {
-  background-color: #333;
-  color: #ddd;
+    background-color: var(--header-footer-bg);
+    color: #fff;
+    padding: 1.8rem 1.5rem; /* Padding ajustado */
+    text-align: center;
+    border-radius: 0; /* Removido o border-radius superior para combinar com as imagens */
+    box-shadow: var(--shadow-dark);
+    margin-top: 30px; /* Margem ajustada */
 }
 
+#contato {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+#email a {
+    color: #fff; /* Alterado para branco */
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#email a:hover {
+    color: #a0a0a0; /* Cor de hover mais suave */
+}
+
+#social {
+    display: flex;
+    gap: 18px; /* Espaçamento ajustado */
+}
+
+#social img {
+    width: 25px; /* Diminuído de 30px */
+    height: 25px; /* Diminuído de 30px */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#social img:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Media Queries para responsividade */
+@media (min-width: 768px) {
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1rem 2.5rem;
+    }
+
+    #logo {
+        margin-bottom: 0;
+    }
+
+    #menu {
+        justify-content: flex-end;
+    }
+
+    #principal {
+        flex-direction: row;
+        text-align: left;
+        align-items: flex-start; /* Alinhamento ao topo */
+    }
+
+    #sec_ctd {
+        text-align: left;
+        padding: 0 0 0 2rem; /* Ajuste de padding */
+    }
+
+    #second {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    #descricao {
+        text-align: left;
+    }
+
+    #descricao ol, #descricao ul {
+        margin: 0;
+    }
+
+    #acesso {
+        align-items: flex-start;
+    }
+
+    /* Ajuste para a página inicial */
+    #second:not(.f):not(.l):not(.m) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .cartaz {
+        margin: 1.8rem; /* Margem ajustada */
+    }
+
+    footer {
+        padding: 1.8rem 2.5rem;
+    }
+
+    #contato {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 1024px) {
+    main, #second {
+        padding: 3.5rem; /* Padding aumentado */
+    }
+
+    #sec_ctd h1 {
+        font-size: 2.8rem; /* Tamanho ajustado */
+    }
+
+    #sec_ctd p {
+        font-size: 1.1rem;
+    }
+}
